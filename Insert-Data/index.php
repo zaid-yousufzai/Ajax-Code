@@ -11,6 +11,14 @@
         table {
             border: 1px solid black;
         }
+        .model{
+            border: 1px solid black;
+            padding: 10px;
+            
+            width: 400px;
+            display: none;
+            
+        }
     </style>
 </head>
 <body>
@@ -24,12 +32,23 @@
             <tr>
                 <td>Id</td>
                 <td>Name</td>
+                <td>Update</td>
                 <td>Delete</td>
             </tr>
         </thead>
         <tbody id="table-data"> <!-- Corrected the ID attribute -->
         </tbody>
     </table>
+
+    <div class="model">
+        <form id="model-form">
+           
+        
+    
+    
+
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -80,6 +99,47 @@
         }
     })
 });
+
+$("#hidemodel").click(function()
+{
+    $(".model").fadeOut();
+})
+
+$(document).on("click", ".edit-btn", function() {
+            $(".model").fadeIn();
+
+            let userId = $(this).data("id");
+
+            $.ajax({
+                url: "update.php",
+                type: "POST",
+                data: { id: userId },
+                success: function(data) {
+                    $("#model-form").html(data);
+                }
+            });
+        });
+    
+
+
+        $(document).on("click","#savemodel",function()
+        {
+            let namemodel=$("#namemodel").val();
+            let  idmodel=$("#idmodel").val();
+
+            $.ajax({
+                url:"update-data.php",
+                type:"POST",
+                data:{id:idmodel, name:namemodel},
+                success:function(data)
+                {
+                    if(data==1)
+                    {
+                        $(".model").fadeOut();
+                    }
+                }
+            })
+        })
 
         });
     </script>
