@@ -13,6 +13,8 @@ if(mysqli_num_rows($result)>0)
         $output .= " <tr>
         <td>{$row['id']}</td>
         <td>{$row['name']}</td>
+        <td><button class='delete-btn' data-id='{$row["id"]}'>Delete</button></td>
+
     </tr>";
     }
 

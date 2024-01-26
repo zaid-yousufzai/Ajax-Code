@@ -24,6 +24,7 @@
             <tr>
                 <td>Id</td>
                 <td>Name</td>
+                <td>Delete</td>
             </tr>
         </thead>
         <tbody id="table-data"> <!-- Corrected the ID attribute -->
@@ -60,6 +61,26 @@
                     }
                 })
             })
+
+            $(document).on("click", ".delete-btn", function() {
+    let userId = $(this).data("id");
+    let element=this;
+    $.ajax({
+        url:"delete.php",
+        type:"POST",
+        data:{id:userId},
+        success:function(data)
+        {
+
+            if(data==1)
+            {
+                $(element).closest("tr").fadeOut();
+            }
+
+        }
+    })
+});
+
         });
     </script>
 </body>
